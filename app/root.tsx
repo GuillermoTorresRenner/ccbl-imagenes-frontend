@@ -7,19 +7,41 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import type { LinksFunction } from "react-router";
 import type { Route } from "./+types/root";
 import "./app.css";
+import Footer from "~/components/Footer";
+import WhatsAppFAB from "~/components/WhatsAppFAB";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+export const links: LinksFunction = () => [
+  // Preload de fuentes Avenir locales para mejor rendimiento
   {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
+    rel: "preload",
+    href: "/fonts/AvenirLTStd-Book.otf",
+    as: "font",
+    type: "font/otf",
     crossOrigin: "anonymous",
   },
   {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    rel: "preload",
+    href: "/fonts/AvenirLTStd-Roman.otf",
+    as: "font",
+    type: "font/otf",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "preload",
+    href: "/fonts/avenir-lt-std-65-medium.otf",
+    as: "font",
+    type: "font/otf",
+    crossOrigin: "anonymous",
+  },
+  {
+    rel: "preload",
+    href: "/fonts/avenir-lt-std-85-heavy.otf",
+    as: "font",
+    type: "font/otf",
+    crossOrigin: "anonymous",
   },
 ];
 
@@ -42,7 +64,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+      <WhatsAppFAB
+        phoneNumber="+56927543900"
+        message="Hola, me interesa conocer más sobre los servicios culturales de Lo Barnechea"
+      />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
