@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiSearch } from 'react-icons/fi';
 
 interface HeaderProps {
   title: string;
@@ -18,6 +18,10 @@ const menuItems = [
 
 const Header = ({ title, logo, img }: HeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const handleSearch = () => {
+    console.log("Buscar:", searchValue);
+  };
   return (
     <header
       className="w-full px-4 md:px-10 py-6 flex flex-col min-h-[320px] md:min-h-[512px] relative bg-cover bg-center bg-no-repeat"
@@ -59,11 +63,16 @@ const Header = ({ title, logo, img }: HeaderProps) => {
               </li>
             ))}
           </ul>
-          <input
-            type="text"
-            placeholder="Buscar"
-            className="px-2 py-1 rounded bg-white text-gray-800 text-xs border border-gray-300 focus:outline-none w-20 ml-6"
-          />
+          <div className="relative ml-6">
+            <span className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400 text-base pointer-events-none">
+              <FiSearch />
+            </span>
+            <input
+              type="text"
+              placeholder="Buscar"
+              className="pl-7 pr-2 py-1 rounded bg-white text-gray-800 text-xs border border-gray-300 focus:outline-none w-20"
+            />
+          </div>
         </nav>
 
         {/* Título debajo del menú en desktop, alineado a la izquierda */}
@@ -99,11 +108,22 @@ const Header = ({ title, logo, img }: HeaderProps) => {
                   </li>
                 ))}
               </ul>
-              <input
-                type="text"
-                placeholder="Buscar"
-                className="px-4 py-2 rounded bg-white text-gray-800 text-base border border-gray-300 focus:outline-none w-3/4"
-              />
+              <div className="relative w-3/4 flex flex-col items-center gap-2">
+                <input
+                  type="text"
+                  placeholder="Buscar"
+                  value={searchValue}
+                  onChange={e => setSearchValue(e.target.value)}
+                  className="pl-10 pr-2 py-2 rounded bg-white text-gray-800 text-base border border-gray-300 focus:outline-none w-full"
+                />
+           
+                <button
+                  className="mt-2 px-2 py-2 bg-yellow-400 text-black font-bold rounded shadow hover:bg-yellow-300 transition-colors w-1/2"
+                  onClick={handleSearch}
+                >
+                  Buscar
+                </button>
+              </div>
             </div>
           </nav>
         )}
