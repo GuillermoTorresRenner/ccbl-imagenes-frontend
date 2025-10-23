@@ -69,7 +69,7 @@ export default function App() {
       <main>
         <Outlet />
       </main>
-      <Footer />
+      {/* <Footer /> */}
       <WhatsAppFAB
         phoneNumber="+56927543900"
         message="Hola, me interesa conocer más sobre los servicios culturales de Lo Barnechea"
