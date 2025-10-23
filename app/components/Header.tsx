@@ -9,11 +9,11 @@ interface HeaderProps {
 }
 
 const menuItems = [
-  { name: "Familia y Amistad", path: "/familia-amistad" },
+  { name: "Familia y Amistad", path: "/familia-y-amistad" },
   { name: "Naturaleza", path: "/naturaleza" },
   { name: "Lugares Emblemáticos", path: "/lugares-emblematicos" },
-  { name: "Ritos y Celebraciones", path: "/ritos-celebraciones" },
-  { name: "El Proyecto", path: "/proyecto" }
+  { name: "Ritos y Celebraciones", path: "/ritos-y-celebraciones" },
+  { name: "El Proyecto", path: "/el-proyecto" }
 ];
 
 const Header = ({ title, logo, img }: HeaderProps) => {
