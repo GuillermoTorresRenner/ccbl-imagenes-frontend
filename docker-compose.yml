@@ -1,0 +1,46 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ccbl-imagenes-frontend
+    restart: unless-stopped
+    environment:
+      - VITE_HOST=0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ccbl-imagenes-frontend.rule=Host(`qa-ccbl-imagenes.tchile.com`)"
+      - "traefik.http.routers.ccbl-imagenes-frontend.entrypoints=websecure"
+      - "traefik.http.routers.ccbl-imagenes-frontend.tls.certresolver=letsencrypt"
+    expose:
+      - 3000
+    networks:
+      - web
+
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    command:
+      - --api.insecure=true
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.email=admin@tchile.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Traefik dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_letsencrypt:/letsencrypt
+    networks:
+      - web
+
+networks:
+  web:
+    external: false
+
+volumes:
+  traefik_letsencrypt:
