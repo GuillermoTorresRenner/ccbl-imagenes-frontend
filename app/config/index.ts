@@ -2,7 +2,7 @@
 export const config = {
   // API Configuration
   api: {
-    baseURL: "http://localhost:1337/api", // Strapi API endpoint
+    baseURL: "http://localhost:3000/api", // Strapi API endpoint
     timeout: 10000, // 10 segundos
   },
 

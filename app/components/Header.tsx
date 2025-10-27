@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router';
 import { FiMenu, FiX, FiSearch } from 'react-icons/fi';
+import type { HeaderProps } from 'types/header';
 
-interface HeaderProps {
-  title: string;
-  logo: string;
-  img: string;
-}
 
 const menuItems = [
   { name: "Familia y Amistad", path: "/familia-y-amistad" },
@@ -16,7 +12,7 @@ const menuItems = [
   { name: "El Proyecto", path: "/el-proyecto" }
 ];
 
-const Header = ({ title, logo, img }: HeaderProps) => {
+const Header = ({ title, img }: HeaderProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const handleSearch = () => {
@@ -33,7 +29,7 @@ const Header = ({ title, logo, img }: HeaderProps) => {
       <div className="flex flex-col items-center md:items-start w-full relative z-10 h-full">
         {/* Logo arriba */}
         <div className="flex items-end gap-4 w-full pt-2 md:pt-0">
-          <img src={logo} alt="Logo" className="h-10 md:h-12 invert" />
+          <img src="/logo.png" alt="Logo" className="h-12 w-auto md:h-25" />
         </div>
 
         {/* Menú hamburguesa en mobile, fijo arriba derecha */}

@@ -1,5 +1,7 @@
+import { getHeaders } from "~/api/headers";
 import type { Route } from "./+types/home";
 import Header from "~/components/Header";
+import { getRandomImages } from "~/api/images";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -7,15 +9,29 @@ export function meta({}: Route.MetaArgs) {
     { name: "description", content: "Explora imágenes de Lo Barnechea" },
   ];
 }
+export async function loader() {
+  // Obtener imágenes y headers de forma asíncrona
+  const [randomImages, headers] = await Promise.all([
+    getRandomImages({ count: 1, variant: "full" }),
+    getHeaders("Home"),
+  ]);
+  return {
+    randomImages: randomImages[0],
+    headers,
+  };
+}
 
-export default function Home() {
+
+
+export default function Home({loaderData}: Route.ComponentProps) {
+  const {randomImages, headers } = loaderData;
+  const { img, title } = headers;
+  console.log(randomImages)
   return (
     <>
       <Header 
-      img="https://i.blogs.es/fb56eb/b-n-silver-efex/1366_2000.webp"
-      logo="https://www.corporacionculturaldelobarnechea.cl/content/uploads/2025/07/Logo-cclb-web-180x45-1.png"
-      title="Lo Barnechea en Imágenes"
-      
+      img={img}
+      title={title}
       />
      
     </>
